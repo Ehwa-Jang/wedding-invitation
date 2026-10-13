@@ -168,7 +168,7 @@ html { scroll-behavior: smooth; }
 body { margin: 0; font-family: var(--font-invitation); font-size: 15px; line-height: 1.6; }
 * { letter-spacing: 0; }
 .invitation { width: 100%; max-width: 400px; margin: 0 auto; }
-.editable-cover { position: relative; isolation: isolate; padding-bottom: 22px; }
+.editable-cover { position: relative; isolation: isolate; padding-bottom: 22px; overflow: clip; }
 .cover-photo { display: block; width: 100%; height: 570px; object-fit: cover; object-position: center; filter: grayscale(1); }
 .letter-dots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; width: 115px; font-size: 13px; line-height: 1; }
 .letter-dots span { display: grid; place-items: center; width: 23px; height: 23px; border-radius: 50%; background: var(--hot-pink); color: var(--share-foreground); }
@@ -180,7 +180,7 @@ body { margin: 0; font-family: var(--font-invitation); font-size: 15px; line-hei
 .cover-heart { position: relative; margin: -172px auto 0; width: 87%; min-height: 225px; padding: 82px 22px 38px; background: var(--hot-pink); color: var(--share-foreground); clip-path: polygon(2% 16%,20% 5%,37% 10%,45% 23%,59% 4%,83% 0,100% 20%,96% 68%,75% 86%,48% 100%,20% 82%,0 50%); text-align: center; }
 .cover-heart h1 { font-family: Georgia, serif; font-size: 16px; font-weight: 500; margin: 0 0 10px; }
 .cover-heart p { font-size: 12px; line-height: 1.15; margin: 0; }
-.script-title { font-family: var(--font-script); font-weight: 400; color: var(--share-foreground); text-shadow: 3px 0 var(--sticker-blue), -3px 0 var(--sticker-blue), 0 3px var(--sticker-blue), 0 -3px var(--sticker-blue), 3px 3px var(--sticker-blue), -3px -3px var(--sticker-blue); }
+.script-title { font-family: var(--font-script); font-weight: 400; color: var(--share-foreground); -webkit-text-stroke: 6px var(--sticker-blue); paint-order: stroke fill; }
 .cover-title { position: relative; margin: -16px 0 0; text-align: center; font-size: 55px; line-height: .86; transform: rotate(-4deg); }
 .cover-title span { font-size: 41px; }
 .handwritten { font-family: var(--font-handwritten); white-space: pre-line; font-size: 26px; line-height: 1.5; font-weight: 400; margin: 0; }
