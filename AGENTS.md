@@ -8,3 +8,7 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep the wedding invitation as a single static React page at `/`; browser-only interactions must not require a backend.
+- Store imported reference media with Lovable asset pointers and a shared media manifest so the page does not hotlink the original site's photos.
+- Define invitation styling centrally in `src/styles.css` and expose interactive styles through Button variants to keep the reference design consistent.

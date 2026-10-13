@@ -16,6 +16,13 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        invitation: "invitation-dark-button",
+        invitationPink: "invitation-pink-button",
+        invitationKakao: "invitation-kakao-button",
+        photo: "photo-button",
+        account: "account-copy",
+        music: "music-button",
+        lightbox: "lightbox-control",
       },
       size: {
         default: "h-9 px-4 py-2",
