@@ -4,6 +4,8 @@ import { ChevronLeft, ChevronRight, Volume2, VolumeX, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import media from "@/assets/invitation-media.json";
 import location from "@/assets/location.jpg.asset.json";
+import { InvitationArtwork, InvitationCalendar } from "@/components/invitation-artwork";
+import { invitation } from "@/lib/invitation-content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,14 +21,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const artwork = [
-  ["2_main1.jpg", "엄태희와 김아란의 결혼식에 초대합니다. 2026년 3월 22일 일요일 오후 12시 30분, 라시따시어터 1층 그랜드볼룸."],
-  ["3_main2.jpg", "우리의 결혼식에 초대합니다. 귀한 당신의 진심을 더해 주시면 더 없는 기쁨이겠습니다."],
-  ["4_groom_fam.jpg", "신랑 엄태희와 가족의 인사"],
-  ["5_bride_fam.jpg", "신부 김아란과 가족의 인사"],
-  ["6_loveletter1.jpg", "신랑이 신부에게 전하는 러브레터"],
-  ["7_loveletter2.jpg", "신부가 신랑에게 전하는 러브레터"],
-] as const;
 const gallery = Array.from({ length: 15 }, (_, index) => media[`${index + 1}.jpg` as keyof typeof media]);
 const accountNames = ["신랑", "신부", "신랑부", "신부부", "신랑모", "신부모"];
 
@@ -95,10 +89,7 @@ function Index() {
       </Button>
       <main className="invitation">
         <h1 className="sr-only">엄태희와 김아란의 결혼식에 초대합니다</h1>
-        {artwork.map(([name, alt], index) => {
-          const asset = media[name];
-          return <img key={name} className="invitation-art" src={asset.url} alt={alt} width={asset.dimensions?.[0]} height={asset.dimensions?.[1]} loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} />;
-        })}
+        <InvitationArtwork />
         <section className="invitation-gallery" aria-label="웨딩 사진">
           <div className="photo-grid">
             {gallery.slice(0, expanded ? 15 : 9).map((asset, index) => (
@@ -109,13 +100,13 @@ function Index() {
           </div>
           <div className="gallery-more"><Button variant="invitation" onClick={() => setExpanded(value => !value)} aria-expanded={expanded}>{expanded ? "접기" : "더보기"}</Button></div>
         </section>
-        <img className="invitation-art" src={media["8_calendar.jpg"].url} width={media["8_calendar.jpg"].dimensions?.[0]} height={media["8_calendar.jpg"].dimensions?.[1]} alt="2026년 3월 22일 일요일 오후 12시 30분 결혼식 달력" loading="lazy" />
+        <InvitationCalendar />
         <section className="location-section" aria-labelledby="location-title">
           <div className="location-heading">
             <h2 className="section-title" id="location-title">오시는 길</h2>
-            <p className="venue-name">라시따시어터 1층 그랜드볼룸</p>
-            <p className="venue-address">서울 서초구 매헌로 16</p>
-            <Button variant="invitationPink" onClick={() => copy("서울 서초구 매헌로 16", "주소가 복사되었습니다 ✓")}>주소 복사하기</Button>
+            <p className="venue-name">{invitation.venue}</p>
+            <p className="venue-address">{invitation.address}</p>
+            <Button variant="invitationPink" onClick={() => copy(invitation.address, "주소가 복사되었습니다 ✓")}>주소 복사하기</Button>
           </div>
           <a href="https://map.naver.com/p/search/라시따시어터" target="_blank" rel="noopener noreferrer" aria-label="네이버 지도에서 라시따시어터 보기">
             <img className="location-map" src={location.url} alt="서울 서초구 매헌로 16, 라시따시어터 위치 지도" loading="lazy" />
@@ -131,8 +122,9 @@ function Index() {
           <div className="account-grid">
             {accountNames.map((name, index) => (
               <div className="account-item" key={name}>
-                <img src={media[`account-${index}.svg` as keyof typeof media].url} alt="" loading="lazy" />
-                <div className="account-info"><p>카카오뱅크 123-12-12345</p><p>{name}</p><Button variant="account" aria-label={`${name} 계좌번호 복사하기`} onClick={() => copy("카카오뱅크 123-12-12345", "계좌번호가 복사되었습니다 ✓")}>복사하기</Button></div>
+                {index < 2 && <span className="account-tag" aria-hidden="true">{index === 0 ? "신랑 측" : "신부 측"}</span>}
+                <div className="account-paper" aria-hidden="true" />
+                <div className="account-info"><p>{invitation.bank} {invitation.accountNumber}</p><p>{name}</p><Button variant="account" aria-label={`${name} 계좌번호 복사하기`} onClick={() => copy(`${invitation.bank} ${invitation.accountNumber}`, "계좌번호가 복사되었습니다 ✓")}>복사하기</Button></div>
               </div>
             ))}
           </div>
