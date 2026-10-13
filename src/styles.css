@@ -62,15 +62,15 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 0.375rem;
+  --background: oklch(0.256 0 0);
+  --foreground: oklch(1 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.714 0.129 359);
+  --primary-foreground: oklch(0.256 0 0);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
@@ -142,3 +142,71 @@
     color: var(--color-foreground);
   }
 }
+
+:root {
+  --font-invitation: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --gallery-background: oklch(0.9 0.018 83);
+  --share-background: oklch(1 0 0);
+  --share-foreground: oklch(0.256 0 0);
+  --kakao-background: oklch(0.924 0.191 103);
+  --overlay-background: oklch(0 0 0 / 92%);
+  --invitation-rule: oklch(1 0 0 / 50%);
+  --footer-foreground: oklch(0 0 0 / 30%);
+  --music-foreground: oklch(1 0 0 / 55%);
+}
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font-invitation); font-size: 15px; line-height: 1.6; }
+* { letter-spacing: 0; }
+.invitation { width: 100%; max-width: 400px; margin: 0 auto; }
+.invitation-art { display: block; width: 100%; height: auto; }
+.invitation-gallery { background: var(--gallery-background); }
+.photo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.photo-button { width: 100%; height: auto; aspect-ratio: 3 / 4; overflow: hidden; padding: 0; border-radius: 0; }
+.photo-button img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+.photo-button:hover img { transform: scale(1.05); }
+.gallery-more { text-align: center; padding: 16px 0 70px; }
+.invitation-dark-button { background: var(--share-foreground); color: var(--share-background); border: 0; border-radius: 5px; height: auto; padding: 10px 46px; font-size: 14px; font-weight: 400; }
+.invitation-dark-button:hover { opacity: .85; }
+.invitation-pink-button { background: var(--primary); color: var(--primary-foreground); border: 0; border-radius: 4px; height: auto; padding: 10px 15px; font-size: 15px; font-weight: 400; }
+.invitation-pink-button:hover { opacity: .85; }
+.location-section { padding-top: 60px; padding-bottom: 50px; }
+.location-heading { padding: 41px 25px 30px; }
+.section-title { font-size: 20px; font-weight: 500; margin: 0; }
+.venue-name { margin: 0; font-size: 20px; font-weight: 500; }
+.venue-address { margin: 6px 0 15px; font-size: 16px; }
+.location-map { display: block; width: 100%; height: 250px; object-fit: cover; }
+.transport { padding: 30px 25px 0; }
+.transport p { margin: 0 0 4px; line-height: 1.8; }
+.transport-group + .transport-group { margin-top: 24px; }
+.account-section { padding: 0 16px 30px; }
+.account-section hr { border: 0; border-top: 1px solid var(--invitation-rule); margin: 0 0 50px; }
+.account-section .section-title { margin-bottom: 28px; }
+.account-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.account-item { position: relative; width: 100%; aspect-ratio: 448.4 / 364.1; }
+.account-item img { width: 100%; height: 100%; object-fit: contain; }
+.account-info { position: absolute; inset: 0; padding: 25% 3% 4%; display: flex; align-items: center; justify-content: center; flex-direction: column; color: var(--share-foreground); font-size: 13px; line-height: 1.6; }
+.account-item:nth-child(n+3) .account-info { padding-top: 16%; }
+.account-item:nth-child(n+5) .account-info { padding-top: 25%; }
+.account-info p { margin: 0; text-align: center; }
+.account-copy { color: var(--share-foreground); background: transparent; height: auto; padding: 0; border-radius: 0; font-size: 13px; font-weight: 400; text-decoration: underline; margin-top: 6px; }
+.account-copy:hover { opacity: .7; }
+.share-section { background: var(--share-background); padding: 30px 10px 20px; }
+.share-buttons { max-width: 200px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+.share-buttons .invitation-dark-button { padding: 12px 10px; font-weight: 500; border-radius: 6px; }
+.invitation-kakao-button { background: var(--kakao-background); color: var(--share-foreground); border-radius: 6px; border: 0; height: auto; padding: 12px 10px; font-size: 14px; font-weight: 500; }
+.invitation-kakao-button:hover { opacity: .8; }
+.invitation-footer { background: var(--share-background); color: var(--footer-foreground); padding: 0 0 30px; text-align: center; font-size: 11px; font-weight: 700; }
+.music-button { position: fixed; top: 20px; right: 20px; z-index: 20; width: 40px; height: 40px; border-radius: 50%; background: transparent; color: var(--music-foreground); padding: 8px; }
+.music-button svg { width: 22px; height: 22px; }
+.music-button:hover { background: transparent; color: var(--foreground); }
+.lightbox { position: fixed; inset: 0; z-index: 50; background: var(--overlay-background); display: flex; align-items: center; justify-content: center; touch-action: pan-y; }
+.lightbox-image { max-width: 95vw; max-height: 90dvh; object-fit: contain; }
+.lightbox-control { position: absolute; color: var(--foreground); background: transparent; height: 44px; width: 44px; padding: 8px; border-radius: 0; }
+.lightbox-control:hover { background: transparent; opacity: .75; }
+.lightbox-control svg { width: 28px; height: 28px; }
+.lightbox-close { top: 16px; right: 20px; }
+.lightbox-prev { left: 5px; top: calc(50% - 22px); }
+.lightbox-next { right: 5px; top: calc(50% - 22px); }
+.copy-toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); max-width: calc(100vw - 24px); background: var(--overlay-background); color: var(--foreground); padding: 10px 24px; border-radius: 20px; font-size: 14px; z-index: 60; text-align: center; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .photo-button img { transition: none; } }
