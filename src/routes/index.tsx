@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const accountNames = ["신랑", "신부", "신랑부", "신부부", "신랑모", "신부모"];
+const accountNames = ["신랑", "신부", "신랑 아버지", "신부 아버지", "신랑 어머니", "신부 어머니"];
 
 function Index() {
   const [expanded, setExpanded] = useState(false);
@@ -90,7 +90,7 @@ function Index() {
       <main className="invitation">
         <h1 className="sr-only">{invitation.groom}과 {invitation.bride}의 결혼식에 초대합니다</h1>
         <InvitationArtwork />
-        <section className="invitation-gallery" aria-label="웨딩 사진">
+        <section className="gallery" aria-label="웨딩 사진">
           <div className="photo-grid">
             {gallery.slice(0, expanded ? 15 : 9).map((src, index) => (
               <Button key={src} variant="photo" aria-label={`웨딩 사진 ${index + 1} 확대`} onClick={event => { photoTrigger.current = event.currentTarget; setPhoto(index); }}>
@@ -101,9 +101,9 @@ function Index() {
           <div className="gallery-more"><Button variant="invitation" onClick={() => setExpanded(value => !value)} aria-expanded={expanded}>{expanded ? "접기" : "더보기"}</Button></div>
         </section>
         <InvitationCalendar />
-        <section className="location-section" aria-labelledby="location-title">
+        <section className="location" aria-labelledby="location-title">
           <div className="location-heading">
-            <h2 className="section-title" id="location-title">오시는 길</h2>
+            <p className="eyebrow">Location</p><h2 className="section-title" id="location-title">오시는 길</h2>
             <p className="venue-name">{invitation.venue}</p>
             {invitation.address && <><p className="venue-address">{invitation.address}</p>
             <Button variant="invitationPink" onClick={() => copy(invitation.address, "주소가 복사되었습니다 ✓")}>주소 복사하기</Button></>}
@@ -115,22 +115,20 @@ function Index() {
             {invitation.transport.map(group => <div className="transport-group" key={group.title}><p><strong>{group.title}</strong></p><p>{group.lines.map((line, i) => <span key={i}>{i > 0 && <br />}{line}</span>)}</p></div>)}
           </div>}
         </section>
-        <section className="account-section" aria-labelledby="account-title">
-          <hr /><h2 className="section-title" id="account-title">마음 전하실 곳</h2>
+        <section className="account" aria-labelledby="account-title">
+          <p className="eyebrow">Gift</p><h2 className="section-title" id="account-title">마음 전하실 곳</h2>
           <div className="account-grid">
-            {accountNames.map((name, index) => (
+            {accountNames.map(name => (
               <div className="account-item" key={name}>
-                {index < 2 && <span className="account-tag" aria-hidden="true">{index === 0 ? "신랑 측" : "신부 측"}</span>}
-                <div className="account-paper" aria-hidden="true" />
-                <div className="account-info"><p>{invitation.bank} {invitation.accountNumber}</p><p>{name}</p><Button variant="account" aria-label={`${name} 계좌번호 복사하기`} onClick={() => copy(`${invitation.bank} ${invitation.accountNumber}`, "계좌번호가 복사되었습니다 ✓")}>복사하기</Button></div>
+                <div className="account-info"><p>{name}</p><p>{invitation.bank} {invitation.accountNumber}</p><Button variant="account" aria-label={`${name} 계좌번호 복사하기`} onClick={() => copy(`${invitation.bank} ${invitation.accountNumber}`, "계좌번호가 복사되었습니다 ✓")}>복사하기</Button></div>
               </div>
             ))}
           </div>
         </section>
-        <section className="share-section" aria-label="청첩장 공유">
+        <section className="share" aria-label="청첩장 공유">
           <div className="share-buttons"><Button variant="invitation" onClick={() => copy(window.location.href, "청첩장 링크가 복사되었습니다 ✓")}>결혼소식 소문내기</Button><Button variant="invitationKakao" onClick={share}>카톡으로 소문내기</Button></div>
         </section>
-        <footer className="invitation-footer">ⓒweddingpeach</footer>
+        <footer className="invitation-footer">© {invitation.groomEnglish} &amp; {invitation.brideEnglish}</footer>
       </main>
       {photo !== null && <div className="lightbox" role="dialog" aria-modal="true" aria-label={`웨딩 사진 ${photo + 1} / 15`} onClick={closePhoto} onTouchStart={event => { touchStart.current = event.touches[0]?.clientX ?? 0; }} onTouchEnd={event => { const dx = (event.changedTouches[0]?.clientX ?? touchStart.current) - touchStart.current; if (Math.abs(dx) > 40) shiftPhoto(dx < 0 ? 1 : -1); }}>
         <img className="lightbox-image" src={gallery[photo]} alt={`웨딩 사진 ${photo + 1}`} onClick={event => event.stopPropagation()} />

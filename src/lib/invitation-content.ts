@@ -4,7 +4,6 @@ export const invitation = {
   bride: "장이화",
   groomEnglish: "Minseok",
   brideEnglish: "Ehwa",
-  englishNames: "Minseok ✶ Ehwa",
   date: { year: 2026, month: 3, day: 22, time: "오후 12시 30분", english: "2026.03.22. SUN 12:30 PM" },
   venue: "웨딩시그니처 트리니티홀",
   venueEnglish: ["WEDDING SIGNATURE", "TRINITY HALL"],
