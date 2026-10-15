@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Volume2, VolumeX, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import music from "@/assets/music.mp3.asset.json";
 import { gallery, images } from "@/lib/invitation-images";
 import { InvitationArtwork, InvitationCalendar } from "@/components/invitation-artwork";
 import { invitation } from "@/lib/invitation-content";
@@ -82,10 +81,10 @@ function Index() {
 
   return (
     <>
-      <audio ref={audio} src={music.url} loop preload="none" onPause={() => setPlaying(false)} onPlay={() => setPlaying(true)} />
+      {invitation.musicSrc && <><audio ref={audio} src={invitation.musicSrc} loop preload="none" onPause={() => setPlaying(false)} onPlay={() => setPlaying(true)} />
       <Button variant="music" onClick={toggleMusic} aria-label={playing ? "배경음악 정지" : "배경음악 재생"} title={playing ? "배경음악 정지" : "배경음악 재생"} aria-pressed={playing}>
         {playing ? <Volume2 /> : <VolumeX />}
-      </Button>
+      </Button></>}
       <main className="invitation">
         <h1 className="sr-only">엄태희와 김아란의 결혼식에 초대합니다</h1>
         <InvitationArtwork />

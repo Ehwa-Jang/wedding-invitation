@@ -16,6 +16,8 @@ export const invitation = {
     { to: "TO. ARAN", message: "항상 밝은 미소로 나의 곁을\n지켜줘서 고마워.\n앞으로도 계속 우리의 미래를\n천천히 행복으로 물들여 나가자.\n사랑해 ♥" },
     { to: "TO. TAE HUI", message: "내 곁에서 묵묵히 사랑을\n이야기 하는 사람.\n지금처럼 평생 나와 함께 살아요.\n내 삶에 나타나줘서 고마워요.\n사랑해요." },
   ],
+  // Background music: put an mp3 in public/ (e.g. "/music.mp3"). Leave empty to hide the music button.
+  musicSrc: "",
   bank: "카카오뱅크",
   accountNumber: "123-12-12345",
 };
