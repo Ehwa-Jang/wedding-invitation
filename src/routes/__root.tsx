@@ -74,8 +74,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "엄태희 · 김아란의 청첩장" },
-      { name: "description", content: "엄태희와 김아란의 결혼식에 초대합니다." },
+      { title: "고민석 · 장이화의 청첩장" },
+      { name: "description", content: "고민석과 장이화의 결혼식에 초대합니다." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

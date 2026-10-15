@@ -6,13 +6,15 @@ import { gallery, images } from "@/lib/invitation-images";
 import { InvitationArtwork, InvitationCalendar } from "@/components/invitation-artwork";
 import { invitation } from "@/lib/invitation-content";
 
+const when = `${invitation.date.year}년 ${invitation.date.month}월 ${invitation.date.day}일 일요일 ${invitation.date.time}`;
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "엄태희 ♥ 김아란 | 결혼식에 초대합니다" },
-      { name: "description", content: "2026년 3월 22일 일요일 오후 12시 30분, 라시따시어터 1층 그랜드볼룸. 엄태희와 김아란의 결혼식에 초대합니다." },
-      { property: "og:title", content: "엄태희 ♥ 김아란 | 결혼식에 초대합니다" },
-      { property: "og:description", content: "2026년 3월 22일 일요일 오후 12시 30분 · 라시따시어터 1층 그랜드볼룸" },
+      { title: `${invitation.groom} ♥ ${invitation.bride} | 결혼식에 초대합니다` },
+      { name: "description", content: `${when}, ${invitation.venue}. ${invitation.groom}과 ${invitation.bride}의 결혼식에 초대합니다.` },
+      { property: "og:title", content: `${invitation.groom} ♥ ${invitation.bride} | 결혼식에 초대합니다` },
+      { property: "og:description", content: `${when} · ${invitation.venue}` },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -74,7 +76,7 @@ function Index() {
   };
   const share = async () => {
     if (navigator.share) {
-      try { await navigator.share({ title: "엄태희, 김아란 결혼합니다.", text: "2026년 3월 22일 일요일 오후 12시 30분", url: window.location.href }); }
+      try { await navigator.share({ title: `${invitation.groom}, ${invitation.bride} 결혼합니다.`, text: when, url: window.location.href }); }
       catch (error) { if (!(error instanceof Error && error.name === "AbortError")) notify("공유하지 못했습니다. 다시 시도해 주세요."); }
     } else await copy(window.location.href, "청첩장 링크가 복사되었습니다. 카카오톡에 붙여넣어 주세요.");
   };
@@ -86,13 +88,13 @@ function Index() {
         {playing ? <Volume2 /> : <VolumeX />}
       </Button></>}
       <main className="invitation">
-        <h1 className="sr-only">엄태희와 김아란의 결혼식에 초대합니다</h1>
+        <h1 className="sr-only">{invitation.groom}과 {invitation.bride}의 결혼식에 초대합니다</h1>
         <InvitationArtwork />
         <section className="invitation-gallery" aria-label="웨딩 사진">
           <div className="photo-grid">
             {gallery.slice(0, expanded ? 15 : 9).map((src, index) => (
               <Button key={src} variant="photo" aria-label={`웨딩 사진 ${index + 1} 확대`} onClick={event => { photoTrigger.current = event.currentTarget; setPhoto(index); }}>
-                <img src={src} alt={`엄태희와 김아란의 웨딩 사진 ${index + 1}`} loading="lazy" />
+                <img src={src} alt={`${invitation.groom}과 ${invitation.bride}의 웨딩 사진 ${index + 1}`} loading="lazy" />
               </Button>
             ))}
           </div>
@@ -103,17 +105,15 @@ function Index() {
           <div className="location-heading">
             <h2 className="section-title" id="location-title">오시는 길</h2>
             <p className="venue-name">{invitation.venue}</p>
-            <p className="venue-address">{invitation.address}</p>
-            <Button variant="invitationPink" onClick={() => copy(invitation.address, "주소가 복사되었습니다 ✓")}>주소 복사하기</Button>
+            {invitation.address && <><p className="venue-address">{invitation.address}</p>
+            <Button variant="invitationPink" onClick={() => copy(invitation.address, "주소가 복사되었습니다 ✓")}>주소 복사하기</Button></>}
           </div>
-          <a href="https://map.naver.com/p/search/라시따시어터" target="_blank" rel="noopener noreferrer" aria-label="네이버 지도에서 라시따시어터 보기">
-            <img className="location-map" src={images.location} alt="서울 서초구 매헌로 16, 라시따시어터 위치 지도" loading="lazy" />
+          <a href={`https://map.naver.com/p/search/${encodeURIComponent(invitation.venue)}`} target="_blank" rel="noopener noreferrer" aria-label={`네이버 지도에서 ${invitation.venue} 보기`}>
+            <img className="location-map" src={images.location} alt={`${invitation.venue} 위치 지도`} loading="lazy" />
           </a>
-          <div className="transport">
-            <div className="transport-group"><p><strong>🚃 지하철 이용 시</strong></p><p>지하철 1호선, 수인분당선, KTX<br />수원역 3번 출구에서 도보 8분<br />타임빌라스수원(구 롯데몰) 맞은 편</p></div>
-            <div className="transport-group"><p><strong>🚌 버스 이용 시</strong></p><p>수원역 환승센터(1승강장)하차<br />평동 동남아파트 하차</p></div>
-            <div className="transport-group"><p><strong>🚗 주차 안내</strong></p><p>웨딩홀 지하주차장 이용</p></div>
-          </div>
+          {invitation.transport.length > 0 && <div className="transport">
+            {invitation.transport.map(group => <div className="transport-group" key={group.title}><p><strong>{group.title}</strong></p><p>{group.lines.map((line, i) => <span key={i}>{i > 0 && <br />}{line}</span>)}</p></div>)}
+          </div>}
         </section>
         <section className="account-section" aria-labelledby="account-title">
           <hr /><h2 className="section-title" id="account-title">마음 전하실 곳</h2>
