@@ -17,8 +17,6 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         invitation: "invitation-dark-button",
-        invitationPink: "invitation-pink-button",
-        invitationKakao: "invitation-kakao-button",
         photo: "photo-button",
         account: "account-copy",
         music: "music-button",
