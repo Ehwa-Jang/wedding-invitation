@@ -2,8 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Volume2, VolumeX, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import media from "@/assets/invitation-media.json";
-import location from "@/assets/location.jpg.asset.json";
+import music from "@/assets/music.mp3.asset.json";
+import { gallery, images } from "@/lib/invitation-images";
 import { InvitationArtwork, InvitationCalendar } from "@/components/invitation-artwork";
 import { invitation } from "@/lib/invitation-content";
 
@@ -21,7 +21,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const gallery = Array.from({ length: 15 }, (_, index) => media[`${index + 1}.jpg` as keyof typeof media]);
 const accountNames = ["신랑", "신부", "신랑부", "신부부", "신랑모", "신부모"];
 
 function Index() {
@@ -83,7 +82,7 @@ function Index() {
 
   return (
     <>
-      <audio ref={audio} src={media["music.mp3"].url} loop preload="none" onPause={() => setPlaying(false)} onPlay={() => setPlaying(true)} />
+      <audio ref={audio} src={music.url} loop preload="none" onPause={() => setPlaying(false)} onPlay={() => setPlaying(true)} />
       <Button variant="music" onClick={toggleMusic} aria-label={playing ? "배경음악 정지" : "배경음악 재생"} title={playing ? "배경음악 정지" : "배경음악 재생"} aria-pressed={playing}>
         {playing ? <Volume2 /> : <VolumeX />}
       </Button>
@@ -92,9 +91,9 @@ function Index() {
         <InvitationArtwork />
         <section className="invitation-gallery" aria-label="웨딩 사진">
           <div className="photo-grid">
-            {gallery.slice(0, expanded ? 15 : 9).map((asset, index) => (
-              <Button key={asset.url} variant="photo" aria-label={`웨딩 사진 ${index + 1} 확대`} onClick={event => { photoTrigger.current = event.currentTarget; setPhoto(index); }}>
-                <img src={asset.url} alt={`엄태희와 김아란의 웨딩 사진 ${index + 1}`} loading="lazy" />
+            {gallery.slice(0, expanded ? 15 : 9).map((src, index) => (
+              <Button key={src} variant="photo" aria-label={`웨딩 사진 ${index + 1} 확대`} onClick={event => { photoTrigger.current = event.currentTarget; setPhoto(index); }}>
+                <img src={src} alt={`엄태희와 김아란의 웨딩 사진 ${index + 1}`} loading="lazy" />
               </Button>
             ))}
           </div>
@@ -109,7 +108,7 @@ function Index() {
             <Button variant="invitationPink" onClick={() => copy(invitation.address, "주소가 복사되었습니다 ✓")}>주소 복사하기</Button>
           </div>
           <a href="https://map.naver.com/p/search/라시따시어터" target="_blank" rel="noopener noreferrer" aria-label="네이버 지도에서 라시따시어터 보기">
-            <img className="location-map" src={location.url} alt="서울 서초구 매헌로 16, 라시따시어터 위치 지도" loading="lazy" />
+            <img className="location-map" src={images.location} alt="서울 서초구 매헌로 16, 라시따시어터 위치 지도" loading="lazy" />
           </a>
           <div className="transport">
             <div className="transport-group"><p><strong>🚃 지하철 이용 시</strong></p><p>지하철 1호선, 수인분당선, KTX<br />수원역 3번 출구에서 도보 8분<br />타임빌라스수원(구 롯데몰) 맞은 편</p></div>
@@ -135,7 +134,7 @@ function Index() {
         <footer className="invitation-footer">ⓒweddingpeach</footer>
       </main>
       {photo !== null && <div className="lightbox" role="dialog" aria-modal="true" aria-label={`웨딩 사진 ${photo + 1} / 15`} onClick={closePhoto} onTouchStart={event => { touchStart.current = event.touches[0]?.clientX ?? 0; }} onTouchEnd={event => { const dx = (event.changedTouches[0]?.clientX ?? touchStart.current) - touchStart.current; if (Math.abs(dx) > 40) shiftPhoto(dx < 0 ? 1 : -1); }}>
-        <img className="lightbox-image" src={gallery[photo]?.url} alt={`웨딩 사진 ${photo + 1}`} onClick={event => event.stopPropagation()} />
+        <img className="lightbox-image" src={gallery[photo]} alt={`웨딩 사진 ${photo + 1}`} onClick={event => event.stopPropagation()} />
         <Button ref={closeButton} variant="lightbox" className="lightbox-close" aria-label="사진 닫기" onClick={event => { event.stopPropagation(); closePhoto(); }}><X /></Button>
         <Button variant="lightbox" className="lightbox-prev" aria-label="이전 사진" onClick={event => { event.stopPropagation(); shiftPhoto(-1); }}><ChevronLeft /></Button>
         <Button variant="lightbox" className="lightbox-next" aria-label="다음 사진" onClick={event => { event.stopPropagation(); shiftPhoto(1); }}><ChevronRight /></Button>

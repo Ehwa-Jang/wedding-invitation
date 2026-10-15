@@ -10,6 +10,6 @@
 <!-- LOVABLE:END -->
 
 - Keep the wedding invitation as a single static React page at `/`; browser-only interactions must not require a backend.
-- Store imported reference media with Lovable asset pointers and a shared media manifest so the page does not hotlink the original site's photos.
+- Use dummy placeholder images from `public/dummy/` through the shared manifest in `src/lib/invitation-images.ts`; never hotlink or copy the reference site's photos. Swap photos by replacing files or editing the manifest.
 - Define invitation styling centrally in `src/styles.css` and expose interactive styles through Button variants to keep the reference design consistent.
 - Keep all invitation copy and date values in `src/lib/invitation-content.ts`; render lettering, calendar and decorations as HTML/CSS in `invitation-artwork.tsx` rather than flattened section images so they remain independently editable.
