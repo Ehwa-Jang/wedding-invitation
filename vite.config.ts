@@ -7,7 +7,7 @@ import { nitro } from "nitro/vite";
 
 // BASE_PATH is set by the GitHub Pages workflow (e.g. "/wedding-invitation/").
 export default defineConfig({
-  base: process.env.BASE_PATH ?? "/",
+  base: process.env["BASE_PATH"] ?? "/",
   server: { port: 3000 },
   plugins: [
     tsConfigPaths(),
