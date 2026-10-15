@@ -1,6 +1,6 @@
 // Dummy images. To swap a photo, replace the file in public/dummy/ (keeping the name)
 // or point the slot below at a new URL. Components never reference image paths directly.
-const dummy = (name: string) => `/dummy/${name}.svg`;
+const dummy = (name: string) => `${import.meta.env.BASE_URL}dummy/${name}.svg`;
 
 export const images = {
   cover: dummy("cover"),
